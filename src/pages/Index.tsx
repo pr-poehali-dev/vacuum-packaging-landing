@@ -12,11 +12,19 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
 import { ContactModal } from '@/components/ContactModal';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const Index = () => {
   const { toast } = useToast();
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [modalOpen, setModalOpen] = useState(false);
+  
+  const advantagesAnim = useScrollAnimation();
+  const equipmentAnim = useScrollAnimation();
+  const applicationAnim = useScrollAnimation();
+  const serviceAnim = useScrollAnimation();
+  const testimonialsAnim = useScrollAnimation();
+  const faqAnim = useScrollAnimation();
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -345,12 +353,12 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="advantages" className="py-16 bg-muted/30">
+      <section id="advantages" ref={advantagesAnim.ref as React.RefObject<HTMLElement>} className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Преимущества оборудования</h2>
+          <h2 className={`text-3xl font-bold text-center mb-12 ${advantagesAnim.isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>Преимущества оборудования</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
             {advantages.map((adv, idx) => (
-              <Card key={idx} className="text-center hover:shadow-lg transition-shadow animate-fade-in" style={{ animationDelay: `${idx * 0.05}s` }}>
+              <Card key={idx} className={`text-center hover:shadow-lg transition-shadow ${advantagesAnim.isVisible ? 'animate-scale-in' : 'opacity-0'}`} style={{ animationDelay: `${idx * 0.05}s` }}>
                 <CardContent className="pt-6">
                   <div className="w-16 h-16 mx-auto mb-4 overflow-hidden rounded-lg">
                     <img src={adv.image} alt={adv.title} className="w-full h-full object-cover" />
@@ -370,12 +378,12 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="equipment" className="py-16 bg-gradient-to-b from-background to-muted/20">
+      <section id="equipment" ref={equipmentAnim.ref as React.RefObject<HTMLElement>} className="py-16 bg-gradient-to-b from-background to-muted/20">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Каталог популярных моделей</h2>
+          <h2 className={`text-3xl font-bold text-center mb-12 ${equipmentAnim.isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>Каталог популярных моделей</h2>
           <div className="space-y-6 mb-12">
             {filteredModels.map((model, idx) => (
-              <Card key={model.id} className="hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in" style={{ animationDelay: `${idx * 0.1}s` }}>
+              <Card key={model.id} className={`hover:shadow-xl transition-all duration-300 overflow-hidden ${equipmentAnim.isVisible ? 'animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: `${idx * 0.1}s` }}>
                 <div className="grid md:grid-cols-[350px_1fr] gap-0">
                   <div className="relative bg-gradient-to-br from-white to-gray-50 p-4 md:p-8 flex items-center justify-center md:border-r">
                     <img src={model.image} alt={model.name} className="w-full h-48 md:h-64 object-contain" />
@@ -468,12 +476,12 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="application" className="py-16 bg-muted/30">
+      <section id="application" ref={applicationAnim.ref as React.RefObject<HTMLElement>} className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Применение</h2>
+          <h2 className={`text-3xl font-bold text-center mb-12 ${applicationAnim.isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>Применение</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {applications.map((app, idx) => (
-              <Card key={idx} className="hover:shadow-lg transition-shadow">
+              <Card key={idx} className={`hover:shadow-lg transition-shadow ${applicationAnim.isVisible ? 'animate-scale-in' : 'opacity-0'}`} style={{ animationDelay: `${idx * 0.1}s` }}>
                 <CardHeader>
                   <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                     <Icon name={app.icon} size={32} className="text-primary" />
@@ -621,11 +629,11 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="service" className="py-16">
+      <section id="service" ref={serviceAnim.ref as React.RefObject<HTMLElement>} className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Сервис и доставка</h2>
+          <h2 className={`text-3xl font-bold text-center mb-12 ${serviceAnim.isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>Сервис и доставка</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card>
+            <Card className={`${serviceAnim.isVisible ? 'animate-scale-in' : 'opacity-0'}`} style={{ animationDelay: '0s' }}>
               <CardHeader>
                 <Icon name="MapPin" size={32} className="text-primary mb-2" />
                 <CardTitle className="text-lg">Наличие на складах</CardTitle>
@@ -634,7 +642,7 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground">В Новосибирске и Москве</p>
               </CardContent>
             </Card>
-            <Card>
+            <Card className={`${serviceAnim.isVisible ? 'animate-scale-in' : 'opacity-0'}`} style={{ animationDelay: '0.1s' }}>
               <CardHeader>
                 <Icon name="Truck" size={32} className="text-primary mb-2" />
                 <CardTitle className="text-lg">Доставка РФ и СНГ</CardTitle>
@@ -643,7 +651,7 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground">Экспресс-отправка со склада в день оплаты</p>
               </CardContent>
             </Card>
-            <Card>
+            <Card className={`${serviceAnim.isVisible ? 'animate-scale-in' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
               <CardHeader>
                 <Icon name="GraduationCap" size={32} className="text-primary mb-2" />
                 <CardTitle className="text-lg">Обучение персонала</CardTitle>
@@ -652,7 +660,7 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground">Инструктаж на объекте клиента включён</p>
               </CardContent>
             </Card>
-            <Card>
+            <Card className={`${serviceAnim.isVisible ? 'animate-scale-in' : 'opacity-0'}`} style={{ animationDelay: '0.3s' }}>
               <CardHeader>
                 <Icon name="CreditCard" size={32} className="text-primary mb-2" />
                 <CardTitle className="text-lg">Лизинг и рассрочка</CardTitle>
@@ -665,12 +673,12 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="testimonials" className="py-16">
+      <section id="testimonials" ref={testimonialsAnim.ref as React.RefObject<HTMLElement>} className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Отзывы наших клиентов</h2>
+          <h2 className={`text-3xl font-bold text-center mb-12 ${testimonialsAnim.isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>Отзывы наших клиентов</h2>
           <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
             {testimonials.map((testimonial, idx) => (
-              <Card key={idx} className="hover:shadow-lg transition-shadow">
+              <Card key={idx} className={`hover:shadow-lg transition-shadow ${testimonialsAnim.isVisible ? 'animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: `${idx * 0.15}s` }}>
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -694,12 +702,12 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="faq" className="py-16 bg-muted/30">
+      <section id="faq" ref={faqAnim.ref as React.RefObject<HTMLElement>} className="py-16 bg-muted/30">
         <div className="container mx-auto px-4 max-w-3xl">
-          <h2 className="text-3xl font-bold text-center mb-12">Часто задаваемые вопросы</h2>
+          <h2 className={`text-3xl font-bold text-center mb-12 ${faqAnim.isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>Часто задаваемые вопросы</h2>
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, idx) => (
-              <AccordionItem key={idx} value={`item-${idx}`} className="bg-white border rounded-lg px-6">
+              <AccordionItem key={idx} value={`item-${idx}`} className={`bg-white border rounded-lg px-6 ${faqAnim.isVisible ? 'animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: `${idx * 0.1}s` }}>
                 <AccordionTrigger className="text-left font-semibold hover:no-underline">
                   {faq.q}
                 </AccordionTrigger>
