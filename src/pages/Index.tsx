@@ -11,10 +11,12 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
+import { ContactModal } from '@/components/ContactModal';
 
 const Index = () => {
   const { toast } = useToast();
   const [activeFilter, setActiveFilter] = useState<string>('all');
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,18 +27,18 @@ const Index = () => {
   };
 
   const advantages = [
-    { icon: 'Package', title: 'В наличии', desc: 'Для мяса, рыбы, сыра' },
-    { icon: 'Grid3x3', title: 'Линейка моделей', desc: 'Настольные/напольные, 1/2 камеры' },
-    { icon: 'Shield', title: 'Гарантия до 3 лет', desc: 'Надёжность и стабильность' },
-    { icon: 'Settings', title: 'Полная комплектация', desc: 'Газонаполнение, запайка/обрезка' },
-    { icon: 'Lock', title: 'Герметичный пакет', desc: 'Защита от окисления и влаги' },
-    { icon: 'Boxes', title: 'Универсальность', desc: 'Пищевые и непищевые товары' },
-    { icon: 'Zap', title: 'Автопрограммы', desc: 'Быстрая настройка упаковки' },
-    { icon: 'Wrench', title: 'Оперативный сервис', desc: 'Расходники на складе' },
-    { icon: 'Gauge', title: 'Мощные насосы', desc: 'Высокая производительность' },
-    { icon: 'Layers', title: 'Двойной шов', desc: 'Идеально для мяса и рыбы' },
-    { icon: 'CheckCircle', title: 'Сертификация', desc: 'CE, ISO 9001' },
-    { icon: 'Clock', title: 'Работа 24/7', desc: 'Стабильная непрерывная работа' },
+    { image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/0b71ec3e-a2c5-4e00-aceb-184876407d3b.jpg', title: 'В наличии', desc: 'Для мяса, рыбы, сыра, медицинских, косметических и прочих товаров' },
+    { image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/4faf9fb3-7edd-4d3a-8c09-b6551720734d.jpg', title: 'Линейка моделей', desc: 'Настольные/напольные, 1/2 камеры' },
+    { image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/c1dfcac8-cfbc-4e54-abee-f17a524ad124.jpg', title: 'До 3-х лет гарантия', desc: 'Надёжность и стабильность' },
+    { image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/626e45bb-7048-4bec-89ee-b50bffb73d39.jpg', title: 'Полная комплектация', desc: 'Газонаполнение, запайка/обрезка' },
+    { image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/0f2978d8-ac25-42e5-bf6e-7c8dd395493a.jpg', title: 'Герметичный пакет', desc: 'Защита от окисления и влаги' },
+    { image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/3a94f915-36ab-405b-b26c-c33981ead825.jpg', title: 'Универсальность', desc: 'Пищевые и непищевые товары' },
+    { image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/dad14336-d4ac-450d-b13a-3d21ff7de97d.jpg', title: 'Автопрограммы', desc: 'Быстрая настройка упаковки' },
+    { image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/f74ea2d4-d362-4f28-9fd4-135b90c82a82.jpg', title: 'Оперативный сервис', desc: 'Расходники на складе' },
+    { image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/45afc7b4-929c-4ca1-99d6-6fffa5270673.jpg', title: 'Мощные насосы', desc: 'Высокая производительность' },
+    { image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/5284600a-e3a3-44ec-99b1-5ba84c1ecd7d.jpg', title: 'Двойной шов', desc: 'Идеально для мяса и рыбы' },
+    { image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/02f2ea66-3e7e-4020-b624-1ac163334b6c.jpg', title: 'Сертификация', desc: 'CE, ISO 9001' },
+    { image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/de1bfb06-9393-4e5f-ad96-42b4b0f475c5.jpg', title: 'Работа 24/7', desc: 'Стабильная непрерывная работа' },
   ];
 
   const models = [
@@ -134,6 +136,21 @@ const Index = () => {
       benefits: ['Защита от влаги и пыли', 'Презентация продукции', 'Сохранность при транспортировке', 'Универсальность'],
       icon: 'Box',
     },
+    {
+      title: 'Для медицинских товаров',
+      benefits: ['Стерильность упаковки', 'Длительное хранение', 'Защита от загрязнений', 'Соответствие стандартам'],
+      icon: 'Heart',
+    },
+    {
+      title: 'Для косметических товаров',
+      benefits: ['Сохранение свойств', 'Защита от окисления', 'Презентабельный вид', 'Увеличение срока годности'],
+      icon: 'Sparkles',
+    },
+    {
+      title: 'Для товаров для животных',
+      benefits: ['Свежесть корма', 'Защита от влаги', 'Удобная фасовка', 'Длительное хранение'],
+      icon: 'Cat',
+    },
   ];
 
   const workflowSteps = [
@@ -182,6 +199,41 @@ const Index = () => {
       q: 'Есть ли лизинг и рассрочка?',
       a: 'Да, работаем с ведущими лизинговыми компаниями. Рассрочка до 12 месяцев без переплаты. Оформление от 1 дня.',
     },
+    {
+      q: 'Сколько стоит данное оборудование?',
+      a: 'Стоимость нашего оборудования от 50 тыс. руб. Точная стоимость зависит от характеристик модели, условий доставки, наличия товара на складе. Оставьте заявку в форме обратной связи, менеджер свяжется с вами в ближайшее время и предоставит детальную информацию.',
+    },
+    {
+      q: 'Какую модель выбрать?',
+      a: 'Выбор модели зависит от ваших задач: объема упаковки, типа продукции, размеров продукта. Наш менеджер поможет подобрать оптимальное оборудование под ваши потребности. Оставьте заявку, и мы проконсультируем вас по всем вопросам выбора.',
+    },
+  ];
+
+  const testimonials = [
+    {
+      name: 'Дмитрий Соколов',
+      company: 'Мясной цех "Премиум"',
+      text: 'Приобрели напольную модель с двумя камерами для упаковки мяса. Оборудование работает безупречно уже полгода, производительность выросла в 2 раза. Менеджеры помогли с выбором, инженер быстро настроил и обучил персонал.',
+      rating: 5,
+    },
+    {
+      name: 'Елена Морозова',
+      company: 'Рыбный магазин "Океан"',
+      text: 'Заказали настольную модель для небольшого магазина. Отличное качество упаковки, рыба сохраняет свежесть в несколько раз дольше. Покупатели отмечают презентабельный вид продукции. Рекомендую!',
+      rating: 5,
+    },
+    {
+      name: 'Алексей Петров',
+      company: 'Сыроварня "Традиции"',
+      text: 'Взяли оборудование с функцией газонаполнения для упаковки сыра. Срок годности увеличился до 3 месяцев без потери качества. Окупилось за 4 месяца. Сервис на высоте, все расходники всегда в наличии.',
+      rating: 5,
+    },
+    {
+      name: 'Ольга Васильева',
+      company: 'Производство полуфабрикатов "Домашние"',
+      text: 'Работаем с вакуумными упаковщиками от Техносиб уже 2 года. За это время ни одной поломки! Гарантийное обслуживание отработало четко. Планируем расширяться и заказать еще одну модель.',
+      rating: 5,
+    },
   ];
 
   const compareData = [
@@ -214,7 +266,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="font-bold text-xl text-primary">VacuumPro</div>
+          <div className="font-bold text-xl text-primary"><img src="https://cdn.poehali.dev/files/34a7b0b3-ab44-4d30-b123-e01bb56afd38.jpg" alt="Техносиб" className="h-10" /></div>
           <nav className="hidden md:flex items-center gap-6">
             <a href="#equipment" className="text-sm hover:text-primary transition-colors">Оборудование</a>
             <a href="#advantages" className="text-sm hover:text-primary transition-colors">Преимущества</a>
@@ -225,7 +277,7 @@ const Index = () => {
             <a href="#faq" className="text-sm hover:text-primary transition-colors">FAQ</a>
             <a href="#contact" className="text-sm hover:text-primary transition-colors">Контакты</a>
           </nav>
-          <Button className="bg-accent hover:bg-accent/90">
+          <Button className="bg-accent hover:bg-accent/90" onClick={() => setModalOpen(true)}>
             <Icon name="Phone" size={16} className="mr-2" />
             Заказать звонок
           </Button>
@@ -241,20 +293,20 @@ const Index = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in">
               <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                Промышленные вакуум-упаковщики в наличии — настольные и напольные, 1/2 камеры
+                Промышленные вакуум-упаковщики по доступным ценам
               </h1>
               <p className="text-lg mb-4 text-white/90">
-                Гарантия до 3 лет • Автоматические программы • Мощные насосы • Двойной шов
+                Гарантия до 3 лет • Автоматические программы • Мощные насосы • Двойной шов • Настольные и напольные модели • Азиатские, европейские и российские производители
               </p>
               <p className="text-base mb-8 text-white/80">
                 Бесплатное тестирование в демозале
               </p>
               <div className="flex flex-wrap gap-4 mb-8">
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-white">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-white" onClick={() => setModalOpen(true)}>
                   <Icon name="FileText" size={18} className="mr-2" />
-                  Получить цену за 15 минут
+                  Получить коммерческое предложение
                 </Button>
-                <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur border-white/30 text-white hover:bg-white/20">
+                <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur border-white/30 text-white hover:bg-white/20" onClick={() => setModalOpen(true)}>
                   <Icon name="Calendar" size={18} className="mr-2" />
                   Записаться в демозал
                 </Button>
@@ -285,7 +337,7 @@ const Index = () => {
                 className="rounded-lg shadow-2xl w-full bg-white p-8"
               />
               <div className="absolute -bottom-6 -right-6 bg-accent text-white p-6 rounded-lg shadow-xl">
-                <div className="text-3xl font-bold">3 года</div>
+                <div className="text-2xl font-bold">До 3-х лет</div>
                 <div className="text-sm">гарантия</div>
               </div>
             </div>
@@ -300,8 +352,8 @@ const Index = () => {
             {advantages.map((adv, idx) => (
               <Card key={idx} className="text-center hover:shadow-lg transition-shadow animate-fade-in" style={{ animationDelay: `${idx * 0.05}s` }}>
                 <CardContent className="pt-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Icon name={adv.icon} size={24} className="text-primary" />
+                  <div className="w-16 h-16 mx-auto mb-4 overflow-hidden rounded-lg">
+                    <img src={adv.image} alt={adv.title} className="w-full h-full object-cover" />
                   </div>
                   <h3 className="font-semibold mb-2 text-sm">{adv.title}</h3>
                   <p className="text-xs text-muted-foreground">{adv.desc}</p>
@@ -310,7 +362,7 @@ const Index = () => {
             ))}
           </div>
           <div className="text-center">
-            <Button className="bg-primary hover:bg-primary/90">
+            <Button className="bg-primary hover:bg-primary/90" onClick={() => setModalOpen(true)}>
               <Icon name="Search" size={16} className="mr-2" />
               Подобрать модель под вашу задачу
             </Button>
@@ -320,15 +372,15 @@ const Index = () => {
 
       <section id="equipment" className="py-16 bg-gradient-to-b from-background to-muted/20">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Каталог моделей</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Каталог популярных моделей</h2>
           <div className="space-y-6 mb-12">
             {filteredModels.map((model, idx) => (
               <Card key={model.id} className="hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in" style={{ animationDelay: `${idx * 0.1}s` }}>
                 <div className="grid md:grid-cols-[350px_1fr] gap-0">
-                  <div className="relative bg-gradient-to-br from-white to-gray-50 p-8 flex items-center justify-center border-r">
-                    <img src={model.image} alt={model.name} className="w-full h-64 object-contain" />
+                  <div className="relative bg-gradient-to-br from-white to-gray-50 p-4 md:p-8 flex items-center justify-center md:border-r">
+                    <img src={model.image} alt={model.name} className="w-full h-48 md:h-64 object-contain" />
                     {model.inStock && (
-                      <Badge className="absolute top-4 right-4 bg-green-500 shadow-lg">В наличии</Badge>
+                      <Badge className="absolute top-2 right-2 md:top-4 md:right-4 bg-green-500 shadow-lg text-xs whitespace-nowrap">В наличии</Badge>
                     )}
                   </div>
                   <div className="p-6 flex flex-col">
@@ -393,12 +445,9 @@ const Index = () => {
                         <p className="text-xl font-bold text-primary">{model.price}</p>
                       </div>
                       <div className="flex gap-2">
-                        <Button className="bg-accent hover:bg-accent/90">
+                        <Button className="bg-accent hover:bg-accent/90" onClick={() => setModalOpen(true)}>
                           <Icon name="Mail" size={16} className="mr-2" />
                           Получить КП
-                        </Button>
-                        <Button variant="outline" size="icon">
-                          <Icon name="Download" size={16} />
                         </Button>
                       </div>
                     </div>
@@ -407,37 +456,15 @@ const Index = () => {
               </Card>
             ))}
           </div>
+        </div>
+      </section>
 
-          <Card className="max-w-4xl mx-auto">
-            <CardHeader>
-              <CardTitle>Сравнение моделей</CardTitle>
-              <CardDescription>Выберите оптимальную конфигурацию для вашего производства</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-[200px]">Характеристика</TableHead>
-                      <TableHead>VacPack T-300</TableHead>
-                      <TableHead>VacPack F-500</TableHead>
-                      <TableHead>VacPack F-600D</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {compareData.map((row, idx) => (
-                      <TableRow key={idx}>
-                        <TableCell className="font-medium">{row.feature}</TableCell>
-                        <TableCell>{row.t300}</TableCell>
-                        <TableCell>{row.f500}</TableCell>
-                        <TableCell>{row.f600d}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            </CardContent>
-          </Card>
+      <section className="py-12 bg-muted/30">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-lg mb-6">У нас более 30 моделей вакуумного оборудования. Оставьте заявку и выберете свою модель</p>
+          <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={() => setModalOpen(true)}>
+            Оставить заявку
+          </Button>
         </div>
       </section>
 
@@ -497,15 +524,13 @@ const Index = () => {
                       </li>
                     ))}
                   </ul>
-                  <Button className="w-full bg-accent hover:bg-accent/90">
-                    Добавить в КП
-                  </Button>
+
                 </CardContent>
               </Card>
             ))}
           </div>
           <div className="text-center">
-            <Button variant="outline" size="lg">
+            <Button variant="outline" size="lg" onClick={() => setModalOpen(true)}>
               <Icon name="Package" size={18} className="mr-2" />
               Заказать расходники со склада
             </Button>
@@ -540,11 +565,11 @@ const Index = () => {
             ))}
           </div>
           <div className="text-center space-x-4">
-            <Button variant="secondary" size="lg">
+            <Button variant="secondary" size="lg" onClick={() => setModalOpen(true)}>
               <Icon name="Play" size={18} className="mr-2" />
               Посмотреть демонстрацию
             </Button>
-            <Button variant="outline" size="lg" className="bg-white/10 backdrop-blur border-white/30 text-white hover:bg-white/20">
+            <Button variant="outline" size="lg" className="bg-white/10 backdrop-blur border-white/30 text-white hover:bg-white/20" onClick={() => setModalOpen(true)}>
               <Icon name="Calendar" size={18} className="mr-2" />
               Записаться в демозал
             </Button>
@@ -580,7 +605,7 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              <Button size="lg" className="bg-primary hover:bg-primary/90">
+              <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={() => setModalOpen(true)}>
                 <Icon name="Download" size={18} className="mr-2" />
                 Скачать сертификаты
               </Button>
@@ -603,10 +628,10 @@ const Index = () => {
             <Card>
               <CardHeader>
                 <Icon name="MapPin" size={32} className="text-primary mb-2" />
-                <CardTitle className="text-lg">Сеть сервисных центров</CardTitle>
+                <CardTitle className="text-lg">Наличие на складах</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground">По всей России с большим складом запчастей</p>
+                <p className="text-sm text-muted-foreground">В Новосибирске и Москве</p>
               </CardContent>
             </Card>
             <Card>
@@ -640,6 +665,41 @@ const Index = () => {
         </div>
       </section>
 
+      <section id="testimonials" className="py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Отзывы наших клиентов</h2>
+          <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+            {testimonials.map((testimonial, idx) => (
+              <Card key={idx} className="hover:shadow-lg transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Icon name="User" size={24} className="text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-lg">{testimonial.name}</h3>
+                      <p className="text-sm text-muted-foreground">{testimonial.company}</p>
+                      <div className="flex gap-1 mt-1">
+                        {Array.from({ length: testimonial.rating }).map((_, i) => (
+                          <Icon key={i} name="Star" size={16} className="text-yellow-500 fill-yellow-500" />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">{testimonial.text}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Button variant="outline" onClick={() => setModalOpen(true)}>
+              <Icon name="MessageSquare" size={18} className="mr-2" />
+              Оставить отзыв
+            </Button>
+          </div>
+        </div>
+      </section>
+
       <section id="faq" className="py-16 bg-muted/30">
         <div className="container mx-auto px-4 max-w-3xl">
           <h2 className="text-3xl font-bold text-center mb-12">Часто задаваемые вопросы</h2>
@@ -656,7 +716,7 @@ const Index = () => {
             ))}
           </Accordion>
           <div className="text-center mt-8">
-            <Button variant="outline">
+            <Button variant="outline" onClick={() => setModalOpen(true)}>
               <Icon name="HelpCircle" size={18} className="mr-2" />
               Не нашли ответ? Задайте вопрос
             </Button>
@@ -741,7 +801,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <h3 className="font-bold text-lg mb-4">VacuumPro</h3>
+              <h3 className="font-bold text-lg mb-4">Техносиб</h3>
               <p className="text-sm text-white/70">
                 Промышленное вакуум-упаковочное оборудование от проверенных производителей
               </p>
@@ -768,24 +828,26 @@ const Index = () => {
               <div className="space-y-3 text-sm">
                 <div className="flex items-center gap-2">
                   <Icon name="Phone" size={16} />
-                  <a href="tel:+78001234567" className="text-white/70 hover:text-white transition-colors">+7 (800) 123-45-67</a>
+                  <a href="tel:88005004054" className="text-white/70 hover:text-white transition-colors">8-800-500-40-54</a>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Icon name="Mail" size={16} />
-                  <a href="mailto:info@vacuumpro.ru" className="text-white/70 hover:text-white transition-colors">info@vacuumpro.ru</a>
+                <div className="flex items-start gap-2">
+                  <Icon name="MapPin" size={16} className="mt-1 flex-shrink-0" />
+                  <span className="text-white/70">Москва: ш. Энтузиастов, д. 56, стр. 32, офис 115</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Icon name="MapPin" size={16} />
-                  <span className="text-white/70">Москва, ул. Промышленная, 1</span>
+                <div className="flex items-start gap-2">
+                  <Icon name="MapPin" size={16} className="mt-1 flex-shrink-0" />
+                  <span className="text-white/70">Новосибирск: ул. Электрозаводская, 2 к1, офис 304,314</span>
                 </div>
               </div>
             </div>
           </div>
           <div className="border-t border-white/20 pt-6 text-center text-sm text-white/60">
-            <p>© 2024 VacuumPro. Все права защищены.</p>
+            <p>© 2024 Техносиб. Все права защищены.</p>
           </div>
         </div>
       </footer>
+
+      <ContactModal open={modalOpen} onOpenChange={setModalOpen} />
     </div>
   );
 };
