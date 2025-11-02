@@ -42,59 +42,29 @@ const Index = () => {
   const models = [
     {
       id: 1,
-      name: 'VacPack T-300',
+      name: 'HVC-400/2T (DZ-400/2T)',
       type: 'tabletop',
-      chambers: 1,
-      application: 'meat',
-      image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/29684e0e-a9e9-49ed-8164-d378f664056b.jpg',
-      chamber: '300×250×100 мм',
-      performance: '2-3 цикла/мин',
-      pump: '20 м³/ч',
-      seal: '300 мм, двойной шов',
-      inStock: true,
-      warranty: '3 года',
-      price: 'от 150 000 ₽',
-    },
-    {
-      id: 2,
-      name: 'VacPack F-500',
-      type: 'floor',
-      chambers: 1,
-      application: 'fish',
-      image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/1aa10828-9c42-4657-bd80-48dfb997dd6f.jpg',
-      chamber: '500×400×150 мм',
-      performance: '3-4 цикла/мин',
-      pump: '40 м³/ч',
-      seal: '500 мм, двойной шов',
-      inStock: true,
-      warranty: '3 года',
-      price: 'от 280 000 ₽',
-    },
-    {
-      id: 3,
-      name: 'VacPack F-600D',
-      type: 'floor',
       chambers: 2,
-      application: 'cheese',
-      image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/1aa10828-9c42-4657-bd80-48dfb997dd6f.jpg',
-      chamber: '600×500×200 мм',
-      performance: '5-6 циклов/мин',
-      pump: '63 м³/ч',
-      seal: '600 мм, двойной шов',
+      application: 'universal',
+      image: 'https://cdn.poehali.dev/files/9c7ca575-7502-41a8-bb53-38a599d3d21b.png',
+      voltage: '220 В',
+      power: '900 Вт',
+      sealingBars: '2',
+      sealLength: '400 мм',
+      sealWidth: '10 мм',
+      pump: '20 м³/ч',
+      sealPower: '500 Вт',
+      chamberSize: '400×350×70 мм',
+      externalChamber: '440×420×135 мм',
+      weight: '94 кг',
+      packageSize: '680×610×630 мм',
       inStock: true,
       warranty: '3 года',
-      price: 'от 420 000 ₽',
+      price: 'Запросить цену',
     },
   ];
 
-  const filteredModels = models.filter(model => {
-    if (activeFilter === 'all') return true;
-    if (activeFilter === 'tabletop') return model.type === 'tabletop';
-    if (activeFilter === 'floor') return model.type === 'floor';
-    if (activeFilter === 'single') return model.chambers === 1;
-    if (activeFilter === 'double') return model.chambers === 2;
-    return true;
-  });
+  const filteredModels = models;
 
   const applications = [
     {
@@ -263,9 +233,9 @@ const Index = () => {
             </div>
             <div className="relative animate-scale-in">
               <img
-                src="https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/29684e0e-a9e9-49ed-8164-d378f664056b.jpg"
-                alt="Промышленный вакуум-упаковщик"
-                className="rounded-lg shadow-2xl w-full"
+                src="https://cdn.poehali.dev/files/9c7ca575-7502-41a8-bb53-38a599d3d21b.png"
+                alt="Вакуумный упаковщик HVC-400/2T"
+                className="rounded-lg shadow-2xl w-full bg-white p-8"
               />
               <div className="absolute -bottom-6 -right-6 bg-accent text-white p-6 rounded-lg shadow-xl">
                 <div className="text-3xl font-bold">3 года</div>
@@ -303,89 +273,89 @@ const Index = () => {
 
       <section id="equipment" className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">Каталог моделей</h2>
-          <div className="flex flex-wrap justify-center gap-3 mb-10">
-            <Button
-              variant={activeFilter === 'all' ? 'default' : 'outline'}
-              onClick={() => setActiveFilter('all')}
-            >
-              Все модели
-            </Button>
-            <Button
-              variant={activeFilter === 'tabletop' ? 'default' : 'outline'}
-              onClick={() => setActiveFilter('tabletop')}
-            >
-              Настольные
-            </Button>
-            <Button
-              variant={activeFilter === 'floor' ? 'default' : 'outline'}
-              onClick={() => setActiveFilter('floor')}
-            >
-              Напольные
-            </Button>
-            <Button
-              variant={activeFilter === 'single' ? 'default' : 'outline'}
-              onClick={() => setActiveFilter('single')}
-            >
-              Однокамерные
-            </Button>
-            <Button
-              variant={activeFilter === 'double' ? 'default' : 'outline'}
-              onClick={() => setActiveFilter('double')}
-            >
-              Двухкамерные
-            </Button>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          <h2 className="text-3xl font-bold text-center mb-12">Каталог моделей</h2>
+          <div className="max-w-5xl mx-auto grid md:grid-cols-1 gap-8 mb-12">
             {filteredModels.map((model) => (
               <Card key={model.id} className="hover:shadow-xl transition-shadow">
-                <div className="relative">
-                  <img src={model.image} alt={model.name} className="w-full h-48 object-cover rounded-t-lg" />
-                  {model.inStock && (
-                    <Badge className="absolute top-3 right-3 bg-green-500">В наличии</Badge>
-                  )}
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="relative bg-white p-8 flex items-center justify-center">
+                    <img src={model.image} alt={model.name} className="w-full max-w-md object-contain" />
+                    {model.inStock && (
+                      <Badge className="absolute top-3 right-3 bg-green-500">В наличии</Badge>
+                    )}
+                  </div>
+                  <div className="p-6">
+                    <div className="mb-6">
+                      <div className="flex items-start justify-between mb-2">
+                        <h3 className="text-2xl font-bold">{model.name}</h3>
+                        <Badge variant="outline">{model.warranty}</Badge>
+                      </div>
+                      <p className="text-muted-foreground mb-4">
+                        {model.type === 'tabletop' ? 'Настольная' : 'Напольная'} • {model.chambers} запаивающие планки
+                      </p>
+                    </div>
+
+                    <div className="space-y-3 text-sm mb-6">
+                      <div className="grid grid-cols-2 gap-2">
+                        <span className="text-muted-foreground">Напряжение:</span>
+                        <span className="font-medium">{model.voltage}</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <span className="text-muted-foreground">Мощность двигателя:</span>
+                        <span className="font-medium">{model.power}</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <span className="text-muted-foreground">Запаивающие планки:</span>
+                        <span className="font-medium">{model.sealingBars}</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <span className="text-muted-foreground">Длина запайки:</span>
+                        <span className="font-medium">{model.sealLength}</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <span className="text-muted-foreground">Ширина шва:</span>
+                        <span className="font-medium">{model.sealWidth}</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <span className="text-muted-foreground">Насос:</span>
+                        <span className="font-medium">{model.pump}</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <span className="text-muted-foreground">Мощность запайки:</span>
+                        <span className="font-medium">{model.sealPower}</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <span className="text-muted-foreground">Размер камеры:</span>
+                        <span className="font-medium">{model.chamberSize}</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <span className="text-muted-foreground">Внешние размеры камеры:</span>
+                        <span className="font-medium">{model.externalChamber}</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <span className="text-muted-foreground">Вес:</span>
+                        <span className="font-medium">{model.weight}</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <span className="text-muted-foreground">Габариты в упаковке:</span>
+                        <span className="font-medium">{model.packageSize}</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 pt-2 border-t">
+                        <span className="text-muted-foreground font-semibold">Цена:</span>
+                        <span className="font-bold text-primary text-lg">{model.price}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2">
+                      <Button className="flex-1 bg-accent hover:bg-accent/90">
+                        Получить КП
+                      </Button>
+                      <Button variant="outline" size="icon">
+                        <Icon name="Download" size={16} />
+                      </Button>
+                    </div>
+                  </div>
                 </div>
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
-                    {model.name}
-                    <Badge variant="outline">{model.warranty}</Badge>
-                  </CardTitle>
-                  <CardDescription>
-                    {model.type === 'tabletop' ? 'Настольная' : 'Напольная'} • {model.chambers === 1 ? 'Однокамерная' : 'Двухкамерная'}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm mb-4">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Камера:</span>
-                      <span className="font-medium">{model.chamber}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Производительность:</span>
-                      <span className="font-medium">{model.performance}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Насос:</span>
-                      <span className="font-medium">{model.pump}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Запайка:</span>
-                      <span className="font-medium">{model.seal}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Цена:</span>
-                      <span className="font-bold text-primary">{model.price}</span>
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button className="flex-1 bg-accent hover:bg-accent/90">
-                      Получить КП
-                    </Button>
-                    <Button variant="outline" size="icon">
-                      <Icon name="Download" size={16} />
-                    </Button>
-                  </div>
-                </CardContent>
               </Card>
             ))}
           </div>
