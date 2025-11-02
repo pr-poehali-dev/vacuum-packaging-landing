@@ -275,7 +275,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="font-bold text-xl text-primary"><img src="https://cdn.poehali.dev/files/34a7b0b3-ab44-4d30-b123-e01bb56afd38.jpg" alt="Техносиб" className="h-12" /></div>
+          <div className="font-bold text-xl text-primary"><img src="https://cdn.poehali.dev/files/34a7b0b3-ab44-4d30-b123-e01bb56afd38.jpg" alt="Техносиб" className="h-11" /></div>
           <nav className="hidden md:flex items-center gap-6">
             <a href="#equipment" className="text-sm hover:text-primary transition-colors">Оборудование</a>
             <a href="#advantages" className="text-sm hover:text-primary transition-colors">Преимущества</a>
@@ -525,9 +525,10 @@ const Index = () => {
             ))}
           </div>
           <div className="text-center">
-            <Button variant="outline" size="lg">
+            <Button variant="outline" size="lg" className="w-full sm:w-auto text-sm sm:text-base" onClick={() => setModalOpen(true)}>
               <Icon name="MessageCircle" size={18} className="mr-2" />
-              Получить рекомендации по упаковке вашего продукта
+              <span className="hidden sm:inline">Получить рекомендации по упаковке вашего продукта</span>
+              <span className="sm:hidden">Получить рекомендации</span>
             </Button>
           </div>
         </div>
