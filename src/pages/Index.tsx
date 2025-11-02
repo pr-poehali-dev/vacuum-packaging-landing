@@ -1,12 +1,611 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import Icon from '@/components/ui/icon';
+import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
+  const { toast } = useToast();
+  const [activeFilter, setActiveFilter] = useState<string>('all');
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Заявка отправлена!",
+      description: "Коммерческое предложение придёт на email, менеджер свяжется в течение 15 минут",
+    });
+  };
+
+  const advantages = [
+    { icon: 'Package', title: 'В наличии', desc: 'Для мяса, рыбы, сыра' },
+    { icon: 'Grid3x3', title: 'Линейка моделей', desc: 'Настольные/напольные, 1/2 камеры' },
+    { icon: 'Shield', title: 'Гарантия до 3 лет', desc: 'Надёжность и стабильность' },
+    { icon: 'Settings', title: 'Полная комплектация', desc: 'Газонаполнение, запайка/обрезка' },
+    { icon: 'Lock', title: 'Герметичный пакет', desc: 'Защита от окисления и влаги' },
+    { icon: 'Boxes', title: 'Универсальность', desc: 'Пищевые и непищевые товары' },
+    { icon: 'Zap', title: 'Автопрограммы', desc: 'Быстрая настройка упаковки' },
+    { icon: 'Wrench', title: 'Оперативный сервис', desc: 'Расходники на складе' },
+    { icon: 'Gauge', title: 'Мощные насосы', desc: 'Высокая производительность' },
+    { icon: 'Layers', title: 'Двойной шов', desc: 'Идеально для мяса и рыбы' },
+    { icon: 'CheckCircle', title: 'Сертификация', desc: 'CE, ISO 9001' },
+    { icon: 'Clock', title: 'Работа 24/7', desc: 'Стабильная непрерывная работа' },
+  ];
+
+  const models = [
+    {
+      id: 1,
+      name: 'VacPack T-300',
+      type: 'tabletop',
+      chambers: 1,
+      application: 'meat',
+      image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/29684e0e-a9e9-49ed-8164-d378f664056b.jpg',
+      chamber: '300×250×100 мм',
+      performance: '2-3 цикла/мин',
+      pump: '20 м³/ч',
+      seal: '300 мм, двойной шов',
+      inStock: true,
+      warranty: '3 года',
+    },
+    {
+      id: 2,
+      name: 'VacPack F-500',
+      type: 'floor',
+      chambers: 1,
+      application: 'fish',
+      image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/1aa10828-9c42-4657-bd80-48dfb997dd6f.jpg',
+      chamber: '500×400×150 мм',
+      performance: '3-4 цикла/мин',
+      pump: '40 м³/ч',
+      seal: '500 мм, двойной шов',
+      inStock: true,
+      warranty: '3 года',
+    },
+    {
+      id: 3,
+      name: 'VacPack F-600D',
+      type: 'floor',
+      chambers: 2,
+      application: 'cheese',
+      image: 'https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/1aa10828-9c42-4657-bd80-48dfb997dd6f.jpg',
+      chamber: '600×500×200 мм',
+      performance: '5-6 циклов/мин',
+      pump: '63 м³/ч',
+      seal: '600 мм, двойной шов',
+      inStock: true,
+      warranty: '3 года',
+    },
+  ];
+
+  const filteredModels = models.filter(model => {
+    if (activeFilter === 'all') return true;
+    if (activeFilter === 'tabletop') return model.type === 'tabletop';
+    if (activeFilter === 'floor') return model.type === 'floor';
+    if (activeFilter === 'single') return model.chambers === 1;
+    if (activeFilter === 'double') return model.chambers === 2;
+    return true;
+  });
+
+  const applications = [
+    {
+      title: 'Идеально для мяса',
+      benefits: ['Увеличение срока хранения до 3x', 'Защита от окисления', 'Презентабельный вид', 'Сохранение вкуса и структуры'],
+      icon: 'Beef',
+    },
+    {
+      title: 'Идеально для рыбы',
+      benefits: ['Защита от обветривания', 'Герметичная упаковка', 'Сохранение свежести', 'Удобная презентация'],
+      icon: 'Fish',
+    },
+    {
+      title: 'Идеально для сыра',
+      benefits: ['Контроль созревания', 'Защита от плесени', 'Товарный вид', 'Длительное хранение'],
+      icon: 'Milk',
+    },
+    {
+      title: 'Для непищевых товаров',
+      benefits: ['Защита от влаги и пыли', 'Презентация продукции', 'Сохранность при транспортировке', 'Универсальность'],
+      icon: 'Box',
+    },
+  ];
+
+  const faqs = [
+    {
+      q: 'Чем отличается однокамерная и двухкамерная модель?',
+      a: 'Двухкамерные модели обеспечивают в 2 раза большую производительность за счёт параллельной работы камер. Подходят для крупных производств с высоким потоком упаковки.',
+    },
+    {
+      q: 'Зачем газонаполнение и когда оно нужно?',
+      a: 'Газонаполнение (MAP) замещает воздух инертным газом, что снижает окисление и увеличивает срок хранения до 5 раз. Критично для красного мяса, полуфабрикатов и деликатесов.',
+    },
+    {
+      q: 'Насколько надёжен двойной шов?',
+      a: 'Двойной шов создаёт две параллельные линии запайки, обеспечивая 100% герметичность даже при упаковке мяса с костями или острых краёв. Исключает разгерметизацию при транспортировке.',
+    },
+    {
+      q: 'Какие пакеты подходят и как выбрать размер?',
+      a: 'Используются специальные вакуумные пакеты с рифлением или гладкие плёнки. Размер выбирается исходя из габаритов продукта + 5-7 см запаса на запайку. Наши специалисты помогут подобрать оптимальный тип.',
+    },
+    {
+      q: 'Сроки поставки и условия гарантии?',
+      a: 'Оборудование в наличии на складе — отгрузка в день оплаты. Доставка по РФ 2-7 дней. Гарантия до 3 лет на оборудование, бесплатная пусконаладка включена.',
+    },
+    {
+      q: 'Как организована пусконаладка и обучение?',
+      a: 'Инженер проводит установку, настройку оборудования и обучение персонала на объекте клиента в течение 1 дня. Услуга включена в стоимость оборудования.',
+    },
+    {
+      q: 'Есть ли лизинг и рассрочка?',
+      a: 'Да, работаем с ведущими лизинговыми компаниями. Рассрочка до 12 месяцев без переплаты. Оформление от 1 дня.',
+    },
+  ];
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <header className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="font-bold text-xl text-primary">VacuumPro</div>
+          <nav className="hidden md:flex items-center gap-6">
+            <a href="#equipment" className="text-sm hover:text-primary transition-colors">Оборудование</a>
+            <a href="#advantages" className="text-sm hover:text-primary transition-colors">Преимущества</a>
+            <a href="#application" className="text-sm hover:text-primary transition-colors">Применение</a>
+            <a href="#service" className="text-sm hover:text-primary transition-colors">Сервис</a>
+            <a href="#faq" className="text-sm hover:text-primary transition-colors">FAQ</a>
+            <a href="#contact" className="text-sm hover:text-primary transition-colors">Контакты</a>
+          </nav>
+          <Button className="bg-accent hover:bg-accent/90">
+            <Icon name="Phone" size={16} className="mr-2" />
+            Заказать звонок
+          </Button>
+        </div>
+      </header>
+
+      <section className="relative bg-gradient-to-br from-secondary via-secondary to-primary text-white py-20 overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="animate-fade-in">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                Промышленные вакуум-упаковщики в наличии
+              </h1>
+              <p className="text-lg mb-4 text-white/90">
+                Настольные, напольные, однокамерные и двухкамерные модели
+              </p>
+              <p className="text-base mb-8 text-white/80">
+                Гарантия до 3 лет • Автоматические программы • Мощные насосы • Двойной шов
+              </p>
+              <div className="flex flex-wrap gap-4 mb-8">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-white">
+                  <Icon name="FileText" size={18} className="mr-2" />
+                  Получить цену за 15 минут
+                </Button>
+                <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur border-white/30 text-white hover:bg-white/20">
+                  <Icon name="Calendar" size={18} className="mr-2" />
+                  Записаться в демозал
+                </Button>
+              </div>
+              <div className="flex flex-wrap gap-6 text-sm">
+                <div className="flex items-center gap-2">
+                  <Icon name="ShieldCheck" size={20} />
+                  <span>CE, ISO 9001</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Icon name="Clock" size={20} />
+                  <span>24/7</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Icon name="Truck" size={20} />
+                  <span>Доставка РФ и СНГ</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Icon name="Settings" size={20} />
+                  <span>Пусконаладка бесплатно</span>
+                </div>
+              </div>
+            </div>
+            <div className="relative animate-scale-in">
+              <img
+                src="https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/29684e0e-a9e9-49ed-8164-d378f664056b.jpg"
+                alt="Промышленный вакуум-упаковщик"
+                className="rounded-lg shadow-2xl w-full"
+              />
+              <div className="absolute -bottom-6 -right-6 bg-accent text-white p-6 rounded-lg shadow-xl">
+                <div className="text-3xl font-bold">3 года</div>
+                <div className="text-sm">гарантия</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="advantages" className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Преимущества оборудования</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+            {advantages.map((adv, idx) => (
+              <Card key={idx} className="text-center hover:shadow-lg transition-shadow animate-fade-in" style={{ animationDelay: `${idx * 0.05}s` }}>
+                <CardContent className="pt-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Icon name={adv.icon} size={24} className="text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-2 text-sm">{adv.title}</h3>
+                  <p className="text-xs text-muted-foreground">{adv.desc}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <div className="text-center">
+            <Button className="bg-primary hover:bg-primary/90">
+              <Icon name="Search" size={16} className="mr-2" />
+              Подобрать модель под вашу задачу
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <section id="equipment" className="py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-8">Каталог моделей</h2>
+          <div className="flex flex-wrap justify-center gap-3 mb-10">
+            <Button
+              variant={activeFilter === 'all' ? 'default' : 'outline'}
+              onClick={() => setActiveFilter('all')}
+            >
+              Все модели
+            </Button>
+            <Button
+              variant={activeFilter === 'tabletop' ? 'default' : 'outline'}
+              onClick={() => setActiveFilter('tabletop')}
+            >
+              Настольные
+            </Button>
+            <Button
+              variant={activeFilter === 'floor' ? 'default' : 'outline'}
+              onClick={() => setActiveFilter('floor')}
+            >
+              Напольные
+            </Button>
+            <Button
+              variant={activeFilter === 'single' ? 'default' : 'outline'}
+              onClick={() => setActiveFilter('single')}
+            >
+              Однокамерные
+            </Button>
+            <Button
+              variant={activeFilter === 'double' ? 'default' : 'outline'}
+              onClick={() => setActiveFilter('double')}
+            >
+              Двухкамерные
+            </Button>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredModels.map((model) => (
+              <Card key={model.id} className="hover:shadow-xl transition-shadow">
+                <div className="relative">
+                  <img src={model.image} alt={model.name} className="w-full h-48 object-cover rounded-t-lg" />
+                  {model.inStock && (
+                    <Badge className="absolute top-3 right-3 bg-green-500">В наличии</Badge>
+                  )}
+                </div>
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-between">
+                    {model.name}
+                    <Badge variant="outline">{model.warranty}</Badge>
+                  </CardTitle>
+                  <CardDescription>
+                    {model.type === 'tabletop' ? 'Настольная' : 'Напольная'} • {model.chambers === 1 ? 'Однокамерная' : 'Двухкамерная'}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2 text-sm mb-4">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Камера:</span>
+                      <span className="font-medium">{model.chamber}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Производительность:</span>
+                      <span className="font-medium">{model.performance}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Насос:</span>
+                      <span className="font-medium">{model.pump}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Запайка:</span>
+                      <span className="font-medium">{model.seal}</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button className="flex-1 bg-accent hover:bg-accent/90">
+                      Получить КП
+                    </Button>
+                    <Button variant="outline" size="icon">
+                      <Icon name="Download" size={16} />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="application" className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Применение</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {applications.map((app, idx) => (
+              <Card key={idx} className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                    <Icon name={app.icon} size={32} className="text-primary" />
+                  </div>
+                  <CardTitle className="text-lg">{app.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {app.benefits.map((benefit, bidx) => (
+                      <li key={bidx} className="flex items-start gap-2 text-sm">
+                        <Icon name="Check" size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <div className="text-center">
+            <Button variant="outline" size="lg">
+              <Icon name="MessageCircle" size={18} className="mr-2" />
+              Получить рекомендации по упаковке вашего продукта
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 bg-gradient-to-r from-primary to-secondary text-white">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold mb-6">Гарантии и сертификаты</h2>
+              <div className="space-y-4 mb-6">
+                <div className="flex items-start gap-3">
+                  <Icon name="ShieldCheck" size={24} className="flex-shrink-0 mt-1" />
+                  <div>
+                    <div className="font-semibold mb-1">Гарантия до 3 лет</div>
+                    <div className="text-sm text-white/80">На всё оборудование с бесплатной пусконаладкой</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Icon name="Award" size={24} className="flex-shrink-0 mt-1" />
+                  <div>
+                    <div className="font-semibold mb-1">Сертификация CE, ISO 9001</div>
+                    <div className="text-sm text-white/80">Соответствие международным стандартам качества</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Icon name="FileCheck" size={24} className="flex-shrink-0 mt-1" />
+                  <div>
+                    <div className="font-semibold mb-1">Декларация соответствия</div>
+                    <div className="text-sm text-white/80">Документы для работы на территории РФ</div>
+                  </div>
+                </div>
+              </div>
+              <Button variant="secondary" size="lg">
+                <Icon name="Download" size={18} className="mr-2" />
+                Скачать сертификаты
+              </Button>
+            </div>
+            <div className="relative">
+              <img
+                src="https://cdn.poehali.dev/projects/e84451af-a3eb-4cf9-b3aa-82334790c296/files/88d93b4a-e419-4108-bf09-f5248ad02197.jpg"
+                alt="Упакованная продукция"
+                className="rounded-lg shadow-2xl"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="service" className="py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Сервис и доставка</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card>
+              <CardHeader>
+                <Icon name="MapPin" size={32} className="text-primary mb-2" />
+                <CardTitle className="text-lg">Сеть сервисных центров</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">По всей России с большим складом запчастей</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <Icon name="Truck" size={32} className="text-primary mb-2" />
+                <CardTitle className="text-lg">Доставка РФ и СНГ</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">Экспресс-отправка со склада в день оплаты</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <Icon name="GraduationCap" size={32} className="text-primary mb-2" />
+                <CardTitle className="text-lg">Обучение персонала</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">Инструктаж на объекте клиента включён</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <Icon name="CreditCard" size={32} className="text-primary mb-2" />
+                <CardTitle className="text-lg">Лизинг и рассрочка</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">Гибкие условия оплаты и финансирования</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <h2 className="text-3xl font-bold text-center mb-12">Часто задаваемые вопросы</h2>
+          <Accordion type="single" collapsible className="space-y-4">
+            {faqs.map((faq, idx) => (
+              <AccordionItem key={idx} value={`item-${idx}`} className="bg-white border rounded-lg px-6">
+                <AccordionTrigger className="text-left font-semibold hover:no-underline">
+                  {faq.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">
+                  {faq.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+          <div className="text-center mt-8">
+            <Button variant="outline">
+              <Icon name="HelpCircle" size={18} className="mr-2" />
+              Не нашли ответ? Задайте вопрос
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="py-16 bg-gradient-to-br from-secondary to-primary text-white">
+        <div className="container mx-auto px-4 max-w-2xl">
+          <h2 className="text-3xl font-bold text-center mb-4">Получить коммерческое предложение</h2>
+          <p className="text-center mb-8 text-white/80">Заполните форму — менеджер свяжется в течение 15 минут</p>
+          <form onSubmit={handleFormSubmit} className="bg-white rounded-lg p-8 text-foreground">
+            <div className="grid md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <Label htmlFor="name">Имя *</Label>
+                <Input id="name" required className="mt-1" />
+              </div>
+              <div>
+                <Label htmlFor="phone">Телефон *</Label>
+                <Input id="phone" type="tel" required className="mt-1" />
+              </div>
+            </div>
+            <div className="grid md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <Label htmlFor="email">Email *</Label>
+                <Input id="email" type="email" required className="mt-1" />
+              </div>
+              <div>
+                <Label htmlFor="company">Компания</Label>
+                <Input id="company" className="mt-1" />
+              </div>
+            </div>
+            <div className="grid md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <Label htmlFor="product-type">Тип продукта</Label>
+                <Select>
+                  <SelectTrigger id="product-type" className="mt-1">
+                    <SelectValue placeholder="Выберите" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="meat">Мясо</SelectItem>
+                    <SelectItem value="fish">Рыба</SelectItem>
+                    <SelectItem value="cheese">Сыр</SelectItem>
+                    <SelectItem value="other">Непищевой</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="model-type">Тип модели</Label>
+                <Select>
+                  <SelectTrigger id="model-type" className="mt-1">
+                    <SelectValue placeholder="Выберите" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="tabletop-1">Настольная, 1 камера</SelectItem>
+                    <SelectItem value="tabletop-2">Настольная, 2 камеры</SelectItem>
+                    <SelectItem value="floor-1">Напольная, 1 камера</SelectItem>
+                    <SelectItem value="floor-2">Напольная, 2 камеры</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="mb-4">
+              <Label htmlFor="comment">Комментарий</Label>
+              <Textarea id="comment" rows={3} className="mt-1" />
+            </div>
+            <div className="flex items-start gap-2 mb-6">
+              <input type="checkbox" id="consent" required className="mt-1" />
+              <Label htmlFor="consent" className="text-sm text-muted-foreground">
+                Согласен на обработку персональных данных
+              </Label>
+            </div>
+            <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90 text-white">
+              <Icon name="Send" size={18} className="mr-2" />
+              Получить коммерческое предложение
+            </Button>
+          </form>
+        </div>
+      </section>
+
+      <footer className="bg-secondary text-white py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h3 className="font-bold text-lg mb-4">VacuumPro</h3>
+              <p className="text-sm text-white/70">
+                Промышленное вакуум-упаковочное оборудование от проверенных производителей
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Меню</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#equipment" className="text-white/70 hover:text-white transition-colors">Оборудование</a></li>
+                <li><a href="#advantages" className="text-white/70 hover:text-white transition-colors">Преимущества</a></li>
+                <li><a href="#application" className="text-white/70 hover:text-white transition-colors">Применение</a></li>
+                <li><a href="#service" className="text-white/70 hover:text-white transition-colors">Сервис</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Сертификаты</h4>
+              <ul className="space-y-2 text-sm text-white/70">
+                <li>CE</li>
+                <li>ISO 9001</li>
+                <li>Декларация соответствия</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Контакты</h4>
+              <div className="space-y-3 text-sm">
+                <div className="flex items-center gap-2">
+                  <Icon name="Phone" size={16} />
+                  <a href="tel:+78001234567" className="text-white/70 hover:text-white transition-colors">+7 (800) 123-45-67</a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Icon name="Mail" size={16} />
+                  <a href="mailto:info@vacuumpro.ru" className="text-white/70 hover:text-white transition-colors">info@vacuumpro.ru</a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Icon name="MapPin" size={16} />
+                  <span className="text-white/70">Москва, ул. Промышленная, 1</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-white/20 pt-6 text-center text-sm text-white/60">
+            <p>© 2024 VacuumPro. Все права защищены.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
