@@ -678,7 +678,6 @@ const Index = () => {
                     </div>
                     <div className="flex-1">
                       <h3 className="font-semibold text-lg">{testimonial.name}</h3>
-                      <p className="text-sm text-muted-foreground">{testimonial.company}</p>
                       <div className="flex gap-1 mt-1">
                         {Array.from({ length: testimonial.rating }).map((_, i) => (
                           <Icon key={i} name="Star" size={16} className="text-yellow-500 fill-yellow-500" />
@@ -691,12 +690,7 @@ const Index = () => {
               </Card>
             ))}
           </div>
-          <div className="text-center mt-8">
-            <Button variant="outline" onClick={() => setModalOpen(true)}>
-              <Icon name="MessageSquare" size={18} className="mr-2" />
-              Оставить отзыв
-            </Button>
-          </div>
+
         </div>
       </section>
 
@@ -816,11 +810,9 @@ const Index = () => {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Сертификаты</h4>
-              <ul className="space-y-2 text-sm text-white/70">
-                <li>CE</li>
-                <li>ISO 9001</li>
-                <li>Декларация соответствия</li>
+              <h4 className="font-semibold mb-4">Каталог</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="https://t-sib.ru/" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">Смотреть весь каталог</a></li>
               </ul>
             </div>
             <div>
@@ -842,7 +834,7 @@ const Index = () => {
             </div>
           </div>
           <div className="border-t border-white/20 pt-6 text-center text-sm text-white/60">
-            <p>© 2024 Техносиб. Все права защищены.</p>
+            <p>© 2025 Техносиб. Все права защищены.</p>
           </div>
         </div>
       </footer>
