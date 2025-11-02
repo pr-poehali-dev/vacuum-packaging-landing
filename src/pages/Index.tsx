@@ -18,6 +18,7 @@ const Index = () => {
   const { toast } = useToast();
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [modalOpen, setModalOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const advantagesAnim = useScrollAnimation();
   const equipmentAnim = useScrollAnimation();
@@ -285,12 +286,32 @@ const Index = () => {
             <a href="#faq" className="text-sm hover:text-primary transition-colors">FAQ</a>
             <a href="#contact" className="text-sm hover:text-primary transition-colors">Контакты</a>
           </nav>
-          <Button className="bg-accent hover:bg-accent/90 text-sm sm:text-base" onClick={() => setModalOpen(true)}>
-            <Icon name="Phone" size={16} className="mr-1 sm:mr-2" />
-            <span className="hidden sm:inline">Заказать звонок</span>
-            <span className="sm:hidden">Звонок</span>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button className="bg-accent hover:bg-accent/90 text-sm sm:text-base" onClick={() => setModalOpen(true)}>
+              <Icon name="Phone" size={16} className="mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Заказать звонок</span>
+              <span className="sm:hidden">Звонок</span>
+            </Button>
+            <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+              <Icon name={mobileMenuOpen ? "X" : "Menu"} size={24} />
+            </Button>
+          </div>
         </div>
+        
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-border bg-white animate-fade-in">
+            <nav className="container mx-auto px-4 py-4 flex flex-col gap-3">
+              <a href="#equipment" className="text-sm hover:text-primary transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Оборудование</a>
+              <a href="#advantages" className="text-sm hover:text-primary transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Преимущества</a>
+              <a href="#application" className="text-sm hover:text-primary transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Применение</a>
+              <a href="#options" className="text-sm hover:text-primary transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Опции</a>
+              <a href="#how-it-works" className="text-sm hover:text-primary transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Как работает</a>
+              <a href="#service" className="text-sm hover:text-primary transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Сервис</a>
+              <a href="#faq" className="text-sm hover:text-primary transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>FAQ</a>
+              <a href="#contact" className="text-sm hover:text-primary transition-colors py-2" onClick={() => setMobileMenuOpen(false)}>Контакты</a>
+            </nav>
+          </div>
+        )}
       </header>
 
       <section className="relative bg-gradient-to-br from-secondary via-secondary to-primary text-white py-20 overflow-hidden">
