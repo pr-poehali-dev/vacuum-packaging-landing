@@ -61,6 +61,30 @@ const Index = () => {
       inStock: true,
       warranty: '3 года',
       price: 'Запросить цену',
+      body: '',
+    },
+    {
+      id: 2,
+      name: 'Вакуумный упаковщик напольный',
+      type: 'floor',
+      chambers: 2,
+      application: 'universal',
+      image: 'https://cdn.poehali.dev/files/0a82f194-5bc8-4995-830b-c1cf62a9ec9f.jpg',
+      voltage: '220 или 380 В (под заказ)',
+      power: '750 Вт',
+      sealingBars: '2',
+      sealLength: '410 + 410 мм',
+      sealWidth: '10 мм, 2×3 мм, 3 мм + Обрезка',
+      pump: '20 м³/ч',
+      sealPower: '500 Вт',
+      chamberSize: '450×450×140 мм',
+      externalChamber: '',
+      weight: '',
+      packageSize: '',
+      inStock: true,
+      warranty: '3 года',
+      price: 'Запросить цену',
+      body: 'Нерж. сталь SUS304',
     },
   ];
 
@@ -328,18 +352,30 @@ const Index = () => {
                         <span className="text-muted-foreground">Размер камеры:</span>
                         <span className="font-medium">{model.chamberSize}</span>
                       </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <span className="text-muted-foreground">Внешние размеры камеры:</span>
-                        <span className="font-medium">{model.externalChamber}</span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <span className="text-muted-foreground">Вес:</span>
-                        <span className="font-medium">{model.weight}</span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <span className="text-muted-foreground">Габариты в упаковке:</span>
-                        <span className="font-medium">{model.packageSize}</span>
-                      </div>
+                      {model.externalChamber && (
+                        <div className="grid grid-cols-2 gap-2">
+                          <span className="text-muted-foreground">Внешние размеры:</span>
+                          <span className="font-medium">{model.externalChamber}</span>
+                        </div>
+                      )}
+                      {model.body && (
+                        <div className="grid grid-cols-2 gap-2">
+                          <span className="text-muted-foreground">Корпус:</span>
+                          <span className="font-medium">{model.body}</span>
+                        </div>
+                      )}
+                      {model.weight && (
+                        <div className="grid grid-cols-2 gap-2">
+                          <span className="text-muted-foreground">Вес:</span>
+                          <span className="font-medium">{model.weight}</span>
+                        </div>
+                      )}
+                      {model.packageSize && (
+                        <div className="grid grid-cols-2 gap-2">
+                          <span className="text-muted-foreground">Габариты в упаковке:</span>
+                          <span className="font-medium">{model.packageSize}</span>
+                        </div>
+                      )}
                       <div className="grid grid-cols-2 gap-2 pt-2 border-t">
                         <span className="text-muted-foreground font-semibold">Цена:</span>
                         <span className="font-bold text-primary text-lg">{model.price}</span>
