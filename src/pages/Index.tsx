@@ -86,6 +86,29 @@ const Index = () => {
       price: 'Запросить цену',
       body: 'Нерж. сталь SUS304',
     },
+    {
+      id: 3,
+      name: 'HVC-400/2T-G (DZQ-400/2T)',
+      type: 'tabletop',
+      chambers: 2,
+      application: 'universal',
+      image: 'https://cdn.poehali.dev/files/66e73a17-7ec1-42bc-9f38-703f28f96f8c.png',
+      voltage: '220 В',
+      power: '900 Вт',
+      sealingBars: '2',
+      sealLength: '400 мм',
+      sealWidth: '10 мм',
+      pump: '20 м³/ч',
+      sealPower: '500 Вт',
+      chamberSize: '400×365×130 (50×80) мм',
+      externalChamber: '',
+      weight: '94 кг',
+      packageSize: '680×610×630 мм',
+      inStock: true,
+      warranty: '3 года',
+      price: 'Запросить цену',
+      body: 'Нержавеющая сталь',
+    },
   ];
 
   const filteredModels = models;
@@ -295,100 +318,89 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="equipment" className="py-16">
+      <section id="equipment" className="py-16 bg-gradient-to-b from-background to-muted/20">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Каталог моделей</h2>
-          <div className="max-w-5xl mx-auto grid md:grid-cols-1 gap-8 mb-12">
-            {filteredModels.map((model) => (
-              <Card key={model.id} className="hover:shadow-xl transition-shadow">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="relative bg-white p-8 flex items-center justify-center">
-                    <img src={model.image} alt={model.name} className="w-full max-w-md object-contain" />
+          <div className="space-y-6 mb-12">
+            {filteredModels.map((model, idx) => (
+              <Card key={model.id} className="hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in" style={{ animationDelay: `${idx * 0.1}s` }}>
+                <div className="grid md:grid-cols-[350px_1fr] gap-0">
+                  <div className="relative bg-gradient-to-br from-white to-gray-50 p-8 flex items-center justify-center border-r">
+                    <img src={model.image} alt={model.name} className="w-full h-64 object-contain" />
                     {model.inStock && (
-                      <Badge className="absolute top-3 right-3 bg-green-500">В наличии</Badge>
+                      <Badge className="absolute top-4 right-4 bg-green-500 shadow-lg">В наличии</Badge>
                     )}
                   </div>
-                  <div className="p-6">
-                    <div className="mb-6">
+                  <div className="p-6 flex flex-col">
+                    <div className="mb-4">
                       <div className="flex items-start justify-between mb-2">
-                        <h3 className="text-2xl font-bold">{model.name}</h3>
-                        <Badge variant="outline">{model.warranty}</Badge>
+                        <h3 className="text-xl font-bold text-foreground">{model.name}</h3>
+                        <Badge variant="outline" className="ml-2">{model.warranty}</Badge>
                       </div>
-                      <p className="text-muted-foreground mb-4">
-                        {model.type === 'tabletop' ? 'Настольная' : 'Напольная'} • {model.chambers} запаивающие планки
+                      <p className="text-sm text-muted-foreground">
+                        {model.type === 'tabletop' ? 'Настольная модель' : 'Напольная модель'} • {model.chambers} запаивающие планки
                       </p>
                     </div>
 
-                    <div className="space-y-3 text-sm mb-6">
-                      <div className="grid grid-cols-2 gap-2">
-                        <span className="text-muted-foreground">Напряжение:</span>
-                        <span className="font-medium">{model.voltage}</span>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-2 text-sm mb-4 flex-1">
+                      <div>
+                        <span className="text-muted-foreground text-xs">Напряжение:</span>
+                        <p className="font-medium">{model.voltage}</p>
                       </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <span className="text-muted-foreground">Мощность двигателя:</span>
-                        <span className="font-medium">{model.power}</span>
+                      <div>
+                        <span className="text-muted-foreground text-xs">Мощность:</span>
+                        <p className="font-medium">{model.power}</p>
                       </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <span className="text-muted-foreground">Запаивающие планки:</span>
-                        <span className="font-medium">{model.sealingBars}</span>
+                      <div>
+                        <span className="text-muted-foreground text-xs">Длина запайки:</span>
+                        <p className="font-medium">{model.sealLength}</p>
                       </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <span className="text-muted-foreground">Длина запайки:</span>
-                        <span className="font-medium">{model.sealLength}</span>
+                      <div>
+                        <span className="text-muted-foreground text-xs">Ширина шва:</span>
+                        <p className="font-medium">{model.sealWidth}</p>
                       </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <span className="text-muted-foreground">Ширина шва:</span>
-                        <span className="font-medium">{model.sealWidth}</span>
+                      <div>
+                        <span className="text-muted-foreground text-xs">Насос:</span>
+                        <p className="font-medium">{model.pump}</p>
                       </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <span className="text-muted-foreground">Насос:</span>
-                        <span className="font-medium">{model.pump}</span>
+                      <div>
+                        <span className="text-muted-foreground text-xs">Размер камеры:</span>
+                        <p className="font-medium">{model.chamberSize}</p>
                       </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <span className="text-muted-foreground">Мощность запайки:</span>
-                        <span className="font-medium">{model.sealPower}</span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <span className="text-muted-foreground">Размер камеры:</span>
-                        <span className="font-medium">{model.chamberSize}</span>
-                      </div>
-                      {model.externalChamber && (
-                        <div className="grid grid-cols-2 gap-2">
-                          <span className="text-muted-foreground">Внешние размеры:</span>
-                          <span className="font-medium">{model.externalChamber}</span>
-                        </div>
-                      )}
                       {model.body && (
-                        <div className="grid grid-cols-2 gap-2">
-                          <span className="text-muted-foreground">Корпус:</span>
-                          <span className="font-medium">{model.body}</span>
+                        <div>
+                          <span className="text-muted-foreground text-xs">Корпус:</span>
+                          <p className="font-medium">{model.body}</p>
                         </div>
                       )}
                       {model.weight && (
-                        <div className="grid grid-cols-2 gap-2">
-                          <span className="text-muted-foreground">Вес:</span>
-                          <span className="font-medium">{model.weight}</span>
+                        <div>
+                          <span className="text-muted-foreground text-xs">Вес:</span>
+                          <p className="font-medium">{model.weight}</p>
                         </div>
                       )}
                       {model.packageSize && (
-                        <div className="grid grid-cols-2 gap-2">
-                          <span className="text-muted-foreground">Габариты в упаковке:</span>
-                          <span className="font-medium">{model.packageSize}</span>
+                        <div>
+                          <span className="text-muted-foreground text-xs">Габариты:</span>
+                          <p className="font-medium">{model.packageSize}</p>
                         </div>
                       )}
-                      <div className="grid grid-cols-2 gap-2 pt-2 border-t">
-                        <span className="text-muted-foreground font-semibold">Цена:</span>
-                        <span className="font-bold text-primary text-lg">{model.price}</span>
-                      </div>
                     </div>
 
-                    <div className="flex gap-2">
-                      <Button className="flex-1 bg-accent hover:bg-accent/90">
-                        Получить КП
-                      </Button>
-                      <Button variant="outline" size="icon">
-                        <Icon name="Download" size={16} />
-                      </Button>
+                    <div className="flex items-center justify-between pt-4 border-t mt-auto">
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1">Цена</p>
+                        <p className="text-xl font-bold text-primary">{model.price}</p>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button className="bg-accent hover:bg-accent/90">
+                          <Icon name="Mail" size={16} className="mr-2" />
+                          Получить КП
+                        </Button>
+                        <Button variant="outline" size="icon">
+                          <Icon name="Download" size={16} />
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
