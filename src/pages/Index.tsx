@@ -274,7 +274,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="font-bold text-xl text-primary"><img src="https://cdn.poehali.dev/files/34a7b0b3-ab44-4d30-b123-e01bb56afd38.jpg" alt="Техносиб" className="h-10" /></div>
+          <div className="font-bold text-xl text-primary"><img src="https://cdn.poehali.dev/files/34a7b0b3-ab44-4d30-b123-e01bb56afd38.jpg" alt="Техносиб" className="h-12" /></div>
           <nav className="hidden md:flex items-center gap-6">
             <a href="#equipment" className="text-sm hover:text-primary transition-colors">Оборудование</a>
             <a href="#advantages" className="text-sm hover:text-primary transition-colors">Преимущества</a>
@@ -285,9 +285,10 @@ const Index = () => {
             <a href="#faq" className="text-sm hover:text-primary transition-colors">FAQ</a>
             <a href="#contact" className="text-sm hover:text-primary transition-colors">Контакты</a>
           </nav>
-          <Button className="bg-accent hover:bg-accent/90" onClick={() => setModalOpen(true)}>
-            <Icon name="Phone" size={16} className="mr-2" />
-            Заказать звонок
+          <Button className="bg-accent hover:bg-accent/90 text-sm sm:text-base" onClick={() => setModalOpen(true)}>
+            <Icon name="Phone" size={16} className="mr-1 sm:mr-2" />
+            <span className="hidden sm:inline">Заказать звонок</span>
+            <span className="sm:hidden">Звонок</span>
           </Button>
         </div>
       </header>
@@ -300,53 +301,53 @@ const Index = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 leading-tight">
                 Промышленные вакуум-упаковщики по доступным ценам
               </h1>
-              <p className="text-lg mb-4 text-white/90">
+              <p className="text-base sm:text-lg mb-3 md:mb-4 text-white/90">
                 Гарантия до 3 лет • Автоматические программы • Мощные насосы • Двойной шов • Настольные и напольные модели • Азиатские, европейские и российские производители
               </p>
-              <p className="text-base mb-8 text-white/80">
+              <p className="text-sm sm:text-base mb-6 md:mb-8 text-white/80">
                 Бесплатное тестирование в демозале
               </p>
-              <div className="flex flex-wrap gap-4 mb-8">
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-white" onClick={() => setModalOpen(true)}>
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 mb-6 md:mb-8">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-white w-full sm:w-auto text-sm sm:text-base" onClick={() => setModalOpen(true)}>
                   <Icon name="FileText" size={18} className="mr-2" />
-                  Получить коммерческое предложение
+                  <span className="truncate">Получить КП</span>
                 </Button>
-                <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur border-white/30 text-white hover:bg-white/20" onClick={() => setModalOpen(true)}>
+                <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur border-white/30 text-white hover:bg-white/20 w-full sm:w-auto text-sm sm:text-base" onClick={() => setModalOpen(true)}>
                   <Icon name="Calendar" size={18} className="mr-2" />
                   Записаться в демозал
                 </Button>
               </div>
-              <div className="flex flex-wrap gap-6 text-sm">
+              <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 sm:gap-6 text-xs sm:text-sm">
                 <div className="flex items-center gap-2">
-                  <Icon name="ShieldCheck" size={20} />
+                  <Icon name="ShieldCheck" size={18} className="flex-shrink-0" />
                   <span>CE, ISO 9001</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Icon name="Clock" size={20} />
+                  <Icon name="Clock" size={18} className="flex-shrink-0" />
                   <span>24/7</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Icon name="Truck" size={20} />
+                  <Icon name="Truck" size={18} className="flex-shrink-0" />
                   <span>Доставка РФ и СНГ</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Icon name="Settings" size={20} />
+                  <Icon name="Settings" size={18} className="flex-shrink-0" />
                   <span>Пусконаладка бесплатно</span>
                 </div>
               </div>
             </div>
-            <div className="relative animate-scale-in">
+            <div className="relative animate-scale-in hidden md:block">
               <img
                 src="https://cdn.poehali.dev/files/9c7ca575-7502-41a8-bb53-38a599d3d21b.png"
                 alt="Вакуумный упаковщик HVC-400/2T"
                 className="rounded-lg shadow-2xl w-full bg-white p-8"
               />
-              <div className="absolute -bottom-6 -right-6 bg-accent text-white p-6 rounded-lg shadow-xl">
-                <div className="text-2xl font-bold">До 3-х лет</div>
-                <div className="text-sm">гарантия</div>
+              <div className="absolute -bottom-6 -right-6 bg-accent text-white p-4 md:p-6 rounded-lg shadow-xl">
+                <div className="text-xl md:text-2xl font-bold whitespace-nowrap">До 3-х лет</div>
+                <div className="text-xs md:text-sm">гарантия</div>
               </div>
             </div>
           </div>
@@ -370,9 +371,10 @@ const Index = () => {
             ))}
           </div>
           <div className="text-center">
-            <Button className="bg-primary hover:bg-primary/90" onClick={() => setModalOpen(true)}>
+            <Button className="bg-primary hover:bg-primary/90 w-full sm:w-auto text-sm sm:text-base" onClick={() => setModalOpen(true)}>
               <Icon name="Search" size={16} className="mr-2" />
-              Подобрать модель под вашу задачу
+              <span className="hidden sm:inline">Подобрать модель под вашу задачу</span>
+              <span className="sm:hidden">Подобрать модель</span>
             </Button>
           </div>
         </div>
@@ -469,8 +471,8 @@ const Index = () => {
 
       <section className="py-12 bg-muted/30">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-lg mb-6">У нас более 30 моделей вакуумного оборудования. Оставьте заявку и выберете свою модель</p>
-          <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={() => setModalOpen(true)}>
+          <p className="text-base sm:text-lg mb-6">У нас более 30 моделей вакуумного оборудования. Оставьте заявку и выберете свою модель</p>
+          <Button size="lg" className="bg-accent hover:bg-accent/90 w-full sm:w-auto" onClick={() => setModalOpen(true)}>
             Оставить заявку
           </Button>
         </div>
@@ -572,12 +574,13 @@ const Index = () => {
               </Card>
             ))}
           </div>
-          <div className="text-center space-x-4">
-            <Button variant="secondary" size="lg" onClick={() => setModalOpen(true)}>
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center">
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto text-sm sm:text-base" onClick={() => setModalOpen(true)}>
               <Icon name="Play" size={18} className="mr-2" />
-              Посмотреть демонстрацию
+              <span className="hidden sm:inline">Посмотреть демонстрацию</span>
+              <span className="sm:hidden">Демонстрация</span>
             </Button>
-            <Button variant="outline" size="lg" className="bg-white/10 backdrop-blur border-white/30 text-white hover:bg-white/20" onClick={() => setModalOpen(true)}>
+            <Button variant="outline" size="lg" className="bg-white/10 backdrop-blur border-white/30 text-white hover:bg-white/20 w-full sm:w-auto text-sm sm:text-base" onClick={() => setModalOpen(true)}>
               <Icon name="Calendar" size={18} className="mr-2" />
               Записаться в демозал
             </Button>
@@ -587,9 +590,9 @@ const Index = () => {
 
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-6">Гарантии и сертификаты</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">Гарантии и сертификаты</h2>
               <div className="space-y-4 mb-6">
                 <div className="flex items-start gap-3">
                   <Icon name="ShieldCheck" size={24} className="text-primary flex-shrink-0 mt-1" />
@@ -718,19 +721,20 @@ const Index = () => {
             ))}
           </Accordion>
           <div className="text-center mt-8">
-            <Button variant="outline" onClick={() => setModalOpen(true)}>
+            <Button variant="outline" className="w-full sm:w-auto text-sm sm:text-base" onClick={() => setModalOpen(true)}>
               <Icon name="HelpCircle" size={18} className="mr-2" />
-              Не нашли ответ? Задайте вопрос
+              <span className="hidden sm:inline">Не нашли ответ? Задайте вопрос</span>
+              <span className="sm:hidden">Задать вопрос</span>
             </Button>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="py-16 bg-gradient-to-br from-secondary to-primary text-white">
+      <section id="contact" className="py-12 sm:py-16 bg-gradient-to-br from-secondary to-primary text-white">
         <div className="container mx-auto px-4 max-w-2xl">
-          <h2 className="text-3xl font-bold text-center mb-4">Получить коммерческое предложение</h2>
-          <p className="text-center mb-8 text-white/80">Заполните форму — менеджер свяжется в течение 15 минут</p>
-          <form onSubmit={handleFormSubmit} className="bg-white rounded-lg p-8 text-foreground">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3 sm:mb-4">Получить коммерческое предложение</h2>
+          <p className="text-center mb-6 sm:mb-8 text-white/80 text-sm sm:text-base">Заполните форму — менеджер свяжется в течение 15 минут</p>
+          <form onSubmit={handleFormSubmit} className="bg-white rounded-lg p-4 sm:p-8 text-foreground">
             <div className="grid md:grid-cols-2 gap-4 mb-4">
               <div>
                 <Label htmlFor="name">Имя *</Label>
