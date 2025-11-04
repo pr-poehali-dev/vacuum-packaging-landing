@@ -614,15 +614,19 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8">Видео о работе оборудования</h2>
           <div className="max-w-4xl mx-auto">
-            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-              <iframe
-                src="https://www.veed.io/embed/4182b5a8-dee2-494f-b5da-3618d7eb0b5b"
-                className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                frameBorder="0"
-                allow="autoplay; fullscreen; picture-in-picture"
-                allowFullScreen
-                title="Видео о работе вакуумного оборудования"
-              ></iframe>
+            <div className="relative w-full bg-muted/30 rounded-lg shadow-lg overflow-hidden" style={{ paddingBottom: '56.25%' }}>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center p-8">
+                  <Icon name="Video" size={48} className="mx-auto mb-4 text-muted-foreground" />
+                  <p className="text-lg font-semibold mb-2">Видео временно недоступно</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Загрузите видео на YouTube или Rutube для встраивания на сайт
+                  </p>
+                  <Button onClick={() => setModalOpen(true)}>
+                    Связаться с нами
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
